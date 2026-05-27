@@ -1,0 +1,6 @@
+cloudflare_api_token  = "COLOQUE_SEU_TOKEN_AQUI"
+cloudflare_zone_id    = "COLOQUE_SEU_ZONE_ID_AQUI"
+cloudflare_zone_name  = "example.com"
+cloudflare_account_id = "COLOQUE_SEU_ACCOUNT_ID_AQUI"
+lb_aws_hostname       = "k8s-example.elb.amazonaws.com"
+lb_ip_azure           = "5.6.7.8"
