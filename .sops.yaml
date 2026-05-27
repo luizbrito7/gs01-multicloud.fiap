@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: fluxcd/apps/.+\.sops\.ya?ml$
+    encrypted_regex: ^(data|stringData)$
+    age: age1u7a5swnulhfm8a0artwuhpargcqc7ererf9a3rffcjj40cx06cas28nmce

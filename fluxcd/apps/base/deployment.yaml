@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gs01-api
+  namespace: demo
+  labels:
+    app: gs01-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gs01-api
+  template:
+    metadata:
+      labels:
+        app: gs01-api
+    spec:
+      imagePullSecrets:
+        - name: ghcr-credentials
+      containers:
+        - name: api
+          image: ghcr.io/luizbrito7/gs01-multicloud.fiap/gs01-api:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: CLOUD_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: cloud-config
+                  key: CLOUD_NAME
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: DATABASE_URL
+            - name: FRONTEND_ORIGIN
+              value: "*"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
